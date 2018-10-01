@@ -28,7 +28,7 @@ class HashTableDemo{
 		}
 
 		//cloning hashtable
-		Hashtable h2 = (Hashtable)h.clone();
-		System.out.println(h2);
+		Hashtable hclone = (Hashtable)h.clone();
+		System.out.println(hclone);
 	}
 }
