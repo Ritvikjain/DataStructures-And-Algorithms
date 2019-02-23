@@ -1,7 +1,24 @@
 #include<iostream>
 using namespace std;
-void bubbleSort(int[],int);
-int main()
+void swap(int *p,int *q)
+{
+  int temp = *p;
+  *p = *q;
+  *q = temp;
+}
+void bubbleSort(int arr[],int n)
+{
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<n-i-1;j++)
+    {
+      if(arr[j]>arr[j+1])
+      {
+        swap(&arr[j],&arr[j+1]);
+      }
+    }
+  }
+}int main()
 {
 	int n;
 	cin>>n;
@@ -13,21 +30,6 @@ int main()
 	bubbleSort(arr,n);
 	for(int i=0;i<n;i++)
 	{
-		cout<<arr[i]<<endl;
-	}
-}
-void bubbleSort(int arr[],int n)
-{
-	for(int j=0;j<n;j++)
-	{
-		for(int i=0;i<n-j-1;i++)
-		{
-			if(arr[i]>arr[i+1])
-			{
-				int temp=arr[i];
-				arr[i]=arr[i+1];
-				arr[i+1]=temp;
-			}
-		}
+		cout<<arr[i]<<" ";
 	}
 }
