@@ -1,55 +1,34 @@
 #include <bits/stdc++.h>
+#define mod 1000000007
 using namespace std;
-long long num_codes(int *input,int size,int arr[]){
-    if(size == 1 || size == 0)
-        return 1;
-    if(arr[size] > 0)
-        return arr[size];
-    long long output = num_codes(input,size-1,arr);
-    if(input[size-2]*10+input[size-1] <= 26){
-        output += num_codes(input,size-2,arr);
-    }
-    long long m = pow(10,9) + 7;
-    arr[size] = output%m;
-    return output%m;
-}
+
 int main()
 {
-    string str;
-    while(cin>>str){
-        if(str == "0")
+    string s;
+    int n,i,x;
+    long long int A[5001];
+    while(1)
+    {
+    
+        cin>>s;
+        if(s=="0")
             break;
-        int *input = new int[str.length()];
-        int flag = 1;
-        int k = 0;
-        for(int i=0;i<str.length();i++)
+        n=s.size();
+        for(int i=0;i<5000;i++)
+            A[i]=0; 
+        A[0]=1;
+        for(int i=1;i<n;i++)
         {
-            if(str[i] == '0' && str[i-1] == '0')
-            {   
-                flag = 0;
-                break;
-            }
-            else if(str[i] == '0')
-            {
-                input[k-1] = input[k-1] * 10;
-                if(input[k-1] > 26)
-                {
-                    flag=0;
-                    break;
-                }
-            }else{
-                input[k] = str[i]-'0';
-                k++;
-            }
+            x=(s[i-1]-'0')*10+s[i]-'0';
+            if(s[i]!='0')
+                A[i]=A[i-1];
+            if(x>=10 && x<=26 && i>1)  
+                A[i]+=A[i-2];
+            else if(x>=10 && x<=26)
+                A[i]++;
+            A[i]=A[i]%mod;
         }
-        if(flag == 0)
-        {
-            cout<<0<<endl;
-            continue;
-        }
-        int arr[str.length()+1] = {0};
-        cout << num_codes(input,k,arr) << endl;
-        delete [] input;
+        cout<<A[n-1]<<endl;
     }
     return 0;
 }
