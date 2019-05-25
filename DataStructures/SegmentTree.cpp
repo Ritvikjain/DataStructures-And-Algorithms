@@ -29,6 +29,20 @@ void updateTree(int * arr,int *tree,int start,int end,int treeNode,int idx,int v
 	}
 	tree[treeNode] = tree[2*treeNode] + tree[2*treeNode+1];
 }
+int query(int* tree,int start,int end,int treeNode,int left,int right)
+{
+	//completely outside
+	if(start>right || end<left)
+		return 0;
+	//completely inside
+	if(start>=left && end<=right)
+		return tree[treeNode];
+	//partially inside and partially outside
+	int mid = (start+end)/2;
+	int ans1 = query(tree,start,mid,2*treeNode,left,right);
+	int ans2 = query(tree,mid+1,end,2*treeNode+1,left,right);
+	return ans1+ans2; 
+}
 int main()
 {
 	int arr[] = {1,2,3,4,5,6,7,8,9};
@@ -43,5 +57,6 @@ int main()
 	{
 		cout << tree[i] << endl;
 	}
+	cout << "Query Solution :" << query(tree,0,8,1,0,2);
 	return 0;
 }
