@@ -1,11 +1,8 @@
 #include<bits/stdc++.h>
 #include<queue>
 using namespace std;
-void printBFS(int ** edges,int n,int sv)
+void printBFS(int ** edges,int n,int sv,bool * visited)
 {
-	bool * visited = new bool[n];
-	for(int i=0;i<n;i++)
-		visited[i] = false;
 	queue<int> pending;
 	pending.push(sv);
 	visited[sv] = true;
@@ -21,6 +18,18 @@ void printBFS(int ** edges,int n,int sv)
 			}
 		}
 	}
+}
+void BFS(int ** edges,int n)
+{
+	bool *visited = new bool[n];
+	for(int i=0;i<n;i++)
+		visited[i] = false;
+	for(int i=0;i<n;i++)
+	{
+		if(!visited[i])
+			printBFS(edges,n,i,visited);
+	}
+	delete [] visited;
 }
 int main()
 {
@@ -40,9 +49,10 @@ int main()
 		edges[x][y] = 1;
 		edges[y][x] = 1;
 	}
-	bool * visited = new bool[n];
+	BFS(edges,n);
+	
 	for(int i=0;i<n;i++)
-		visited[i] = false;
-	printBFS(edges,n,0);
+		delete [] edges[i];
+	delete [] edges;
 	return 0;
 }

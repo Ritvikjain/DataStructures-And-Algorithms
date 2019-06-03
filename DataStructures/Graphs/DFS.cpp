@@ -1,5 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
+//For connected Graph
 void printDFS(int ** edges,int n,int sv,bool * visited)
 {
 	cout << sv << endl;
@@ -12,6 +13,20 @@ void printDFS(int ** edges,int n,int sv,bool * visited)
 			printDFS(edges,n,i,visited);
 		}
 	}
+}
+//For Disconnected Graph
+void DFS(int ** edges,int n){
+	bool *visited = new bool[n];
+	for(int i=0;i<n;i++)
+	{
+		visited[i] = false;
+	}
+	for(int i=0;i<n;i++)
+	{
+		if(!visited[i])
+			printDFS(edges,n,i,visited);
+	}
+	delete [] visited;
 }
 int main()
 {
@@ -31,11 +46,7 @@ int main()
 		edges[x][y] = 1;
 		edges[y][x] = 1;
 	}
-	bool * visited = new bool[n];
-	for(int i=0;i<n;i++)
-		visited[i] = false;
-	printDFS(edges,n,0,visited);
-	delete [] visited;
+	DFS(edges,n);
 	for(int i=0;i<n;i++)
 		delete [] edges[i];
 	delete [] edges;
